@@ -21,14 +21,23 @@ const Feed = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Feed</h1>
+        <div className="container">
+            <h1 className="text-light h1 my-5">Feed</h1>
+            <div className="row row-cols-2 g-4">
             {posts.map((post) => (
-                <div key={post.id}>
-                    <h2>{post.title}</h2>
-                    <Link to={`/post/${post.id}`}>Read More</Link>
+                <div className="col">
+                    <div className="card p-3" key={post.id}>
+                        <img src={require('../assets/images/food-bg.jpg')} className="card-img-top pb-3" alt="..."></img>
+                        <h3 className="card-title ">{post.title}</h3>
+                        <h5>{post.subtitle}</h5>
+                        <p className="card-text h6 fw-light"><span className="fw-bold">Published:</span> {post.publish_date}</p>
+                        <p className="card-text h6 fw-light"><span className="fw-bold">Author:</span> {post.author}</p>
+                        <p className="card-text h6 text-secondary fw-light">{post.content}</p>
+                        <Link to={`/post/${post.id}`}><button className="btn btn-success mt-4 mb-2 fw-normal">Read More</button></Link>
+                    </div>
                 </div>
             ))}
+            </div>
         </div>
     );
 };

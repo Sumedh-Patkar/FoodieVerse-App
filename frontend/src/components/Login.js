@@ -25,11 +25,21 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="username" onChange={handleChange} placeholder='Username' />
-            <input type="password" name="password" onChange={handleChange} placeholder='Password' />
-            <button type="submit">Login</button>
+        <div className="container">
+            <h1 className="text-light h1 my-5">Log In to your account</h1>
+            <h5 className="text-secondary h5">Jump in like a kangaroo with your username and password!</h5>
+            <form className="form-floating my-3" onSubmit={handleSubmit}>
+                <div className="form-floating my-3">
+                    <input type="text" id="floatingUsername" className="form-control" name="username" onChange={handleChange} placeholder="Username"></input>
+                    <label for="floatingUsername">Username</label>
+                </div>
+                <div className="form-floating my-3">
+                    <input type="password" id="floatingPassword" className="form-control" name="password" onChange={handleChange} placeholder="Password"></input>
+                    <label for="floatingPassword">Password</label>
+                </div>
+            <button className="btn btn-lg btn-success my-3" type="submit">Login</button>
         </form>
+        </div>
     );
 };
 

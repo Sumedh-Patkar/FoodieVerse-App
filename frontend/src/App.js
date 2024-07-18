@@ -6,10 +6,11 @@ import CreatePost from './components/CreatePost';
 import Feed from './components/Feed';
 import PostDetail from './components/PostDetail';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-dark">
       <Router>
         <Navbar />
         <Routes>
@@ -20,6 +21,7 @@ function App() {
           <Route path="/post/create" element={<CreatePost/>} />
         </Routes>
       </Router>
+      <Footer></Footer>
     </div>
   );
 }
