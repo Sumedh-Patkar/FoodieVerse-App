@@ -4,8 +4,6 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-      cache_from:
-        - '${ROULETTECH_BLOG_API_IMAGE}'
     image: '${ROULETTECH_BLOG_API_IMAGE}'
     command: gunicorn roulettechblog.wsgi:application --bind 0.0.0.0:8000
     ports:
@@ -16,8 +14,6 @@ services:
     build:
       context: ./nginx
       dockerfile: Dockerfile
-    cache_from:
-          - '${ROULETTECH_BLOG_NGINX_IMAGE}'
     image: '${ROULETTECH_BLOG_NGINX_IMAGE}'
     ports:
       - 80:80
