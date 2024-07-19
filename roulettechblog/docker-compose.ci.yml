@@ -19,6 +19,5 @@ services:
     cache_from:
           - '${ROULETTECH_BLOG_NGINX_IMAGE}'
       image: '${ROULETTECH_BLOG_NGINX_IMAGE}'
-
     ports:
       - 80:80
