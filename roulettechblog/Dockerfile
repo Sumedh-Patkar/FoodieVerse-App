@@ -16,5 +16,9 @@ RUN pip install -r /api/requirements.txt
 # copy project
 COPY . /
 
+RUN python3 manage.py makemigrations
+RUN python3 manage.py migrate
+RUN python3 manage.py loaddata fixtures/blog_data.json
+
 # Expose the port server is running on
 EXPOSE 8000
