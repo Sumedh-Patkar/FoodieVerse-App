@@ -29,6 +29,7 @@ jobs:
 
       - name: Pull images
         run: |
+          docker images
           docker pull ${{ env.ROULETTECH_BLOG_API_IMAGE }} || true
           docker pull ${{ env.ROULETTECH_BLOG_NGINX_IMAGE }} || true
 
