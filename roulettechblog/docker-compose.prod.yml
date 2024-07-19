@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000" # Map container port 8000 to host port 8000
     expose:
-      - 8000
+      - 80
   nginx:
       container_name: 'nginx'
       image: '${ROULETTECH_BLOG_NGINX_IMAGE}'
