@@ -7,8 +7,6 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer, PostSerializer
 from django.contrib.auth import authenticate, login, logout
 import json
-import logging
-logger = logging.getLogger(__name__)
 
 # Create your views here.
 # 1. Signup View
@@ -42,7 +40,7 @@ class LoginApiView(APIView):
 # Debug endpoint/view
 class ViewUsersView(APIView):
     def get(self, request, *args, **kwargs):
-        logger.log("Printing view users:\n")
+        print("Printing view users:\n")
         users = User.objects.all()
         usersData = UserSerializer(users, many=True)
 
