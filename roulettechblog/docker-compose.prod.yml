@@ -3,8 +3,10 @@ services:
     container_name: 'django-api'
     image: '${ROULETTECH_BLOG_API_IMAGE}'
     command: gunicorn roulettechblog.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000" # Map container port 8000 to host port 8000
     expose:
-      - 8000
+      - 80
   nginx:
       container_name: 'nginx'
       image: '${ROULETTECH_BLOG_NGINX_IMAGE}'
