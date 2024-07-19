@@ -4,8 +4,8 @@ on: [push]
 
 env:
   #
-  ROULETTECH_BLOG_API_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/roulettechblog
-  ROULETTECH_BLOG_NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx
+  ROULETTECH_BLOG_API_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/roulettechblog1
+  ROULETTECH_BLOG_NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx1
   REGISTRY: ghcr.io
 
 jobs:
@@ -27,10 +27,10 @@ jobs:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
 
-      - name: Pull images
-        run: |
-          docker pull ${{ env.ROULETTECH_BLOG_API_IMAGE }} || true
-          docker pull ${{ env.ROULETTECH_BLOG_NGINX_IMAGE }} || true
+      # - name: Pull images
+      #   run: |
+      #     docker pull ${{ env.ROULETTECH_BLOG_API_IMAGE }} || true
+      #     docker pull ${{ env.ROULETTECH_BLOG_NGINX_IMAGE }} || true
 
       - name: Build images
         id: build-images
