@@ -1,5 +1,5 @@
 # Pull the image from Dockerhub
-FROM python:alpine3.19
+FROM python:alpine3.18
 
 WORKDIR /
 
