@@ -85,9 +85,9 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add ~/.ssh/id_rsa
 
-      - name: Deploy images on AWS EC2
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      # - name: Deploy images on AWS EC2
+      #   env:
+      #     SSH_AUTH_SOCK: /tmp/ssh_agent.sock
 
         # run: |
         #   scp -o StrictHostKeyChecking=no -r ./.env roulettechblog/docker-compose.prod.yml ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }}:
@@ -100,9 +100,13 @@ jobs:
         #       docker logout
         #   EOF
       - name: Copy files to AWS EC2
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: scp -o StrictHostKeyChecking=no -r ./.env roulettechblog/docker-compose.prod.yml ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }}
 
       - name: SSH into AWS EC2 and execute Docker commands
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: ssh -o StrictHostKeyChecking=no ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }} << 'EOF'
             docker compose down --rmi all -v
           EOF
