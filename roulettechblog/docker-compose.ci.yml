@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: '${ROULETTECH_BLOG_API_IMAGE}'
+    command: gunicorn roulettechblog.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - "8000:8000" # Map container port 8000 to host port 8000
+    expose:
+      - 80
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: '${ROULETTECH_BLOG_NGINX_IMAGE}'
+    ports:
+      - 80:80
