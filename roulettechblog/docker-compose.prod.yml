@@ -2,7 +2,7 @@ services:
   api:
     container_name: 'django-api'
     image: '${ROULETTECH_BLOG_API_IMAGE}'
-    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn roulettechblog.wsgi:application --bind 0.0.0.0:8000
     expose:
       - 80
   nginx:
