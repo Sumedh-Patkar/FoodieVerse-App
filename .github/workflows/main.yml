@@ -85,43 +85,17 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add ~/.ssh/id_rsa
 
-      # - name: Deploy images on AWS EC2
-      #   env:
-      #     SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-
-        # run: |
-        #   scp -o StrictHostKeyChecking=no -r ./.env roulettechblog/docker-compose.prod.yml ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }}:
-        #   ssh -o StrictHostKeyChecking=no ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }} << EOF
-        #       docker compose down --rmi all -v
-        #       docker login ghcr.io -u ${{secrets.NAMESPACE}} -p ${{secrets.PERSONAL_ACCESS_TOKEN}}
-        #       docker pull $ROULETTECH_BLOG_API_IMAGE
-        #       docker pull $ROULETTECH_BLOG_NGINX_IMAGE
-        #       docker compose --env-file=.env -f docker-compose.prod.yml up -d --build
-        #       docker logout
-        #   EOF
-      - name: Copy files to AWS EC2
+      - name: Deploy images on AWS EC2
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: scp -o StrictHostKeyChecking=no -r ./.env roulettechblog/docker-compose.prod.yml ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }}
 
-      - name: SSH into AWS EC2 and execute Docker commands
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: ssh -o StrictHostKeyChecking=no ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }} << 'EOF'
-            docker compose down --rmi all -v
+        run: |
+          scp -o StrictHostKeyChecking=no -r ./.env roulettechblog/docker-compose.prod.yml ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }}:
+          ssh -o StrictHostKeyChecking=no ${{secrets.AWS_HOST_USER}}@${{ secrets.AWS_EC2_IP_ADDRESS }} << EOF
+              docker compose down --rmi all -v
+              docker login ghcr.io -u ${{secrets.NAMESPACE}} -p ${{secrets.PERSONAL_ACCESS_TOKEN}}
+              docker pull $ROULETTECH_BLOG_API_IMAGE
+              docker pull $ROULETTECH_BLOG_NGINX_IMAGE
+              docker compose --env-file=.env -f docker-compose.prod.yml up -d --build
+              docker logout
           EOF
-
-      - name: Login to GitHub Container Registry
-        run: docker login ghcr.io -u ${{secrets.NAMESPACE}} -p ${{secrets.PERSONAL_ACCESS_TOKEN}}
-
-      - name: Pull API Docker Image
-        run: docker pull $ROULETTECH_BLOG_API_IMAGE
-
-      - name: Pull Nginx Docker Image
-        run: docker pull $ROULETTECH_BLOG_NGINX_IMAGE
-
-      - name: Deploy Docker Containers
-        run: docker compose --env-file=.env -f docker-compose.prod.yml up -d --build
-
-      - name: Logout from GitHub Container Registry
-        run: docker logout
