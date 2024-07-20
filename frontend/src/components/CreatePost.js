@@ -14,7 +14,7 @@ const CreatePost = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8000/api/post/create/', formData, {
+            await axios.post('http://18.117.250.24/api/post/create/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },

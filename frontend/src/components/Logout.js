@@ -11,7 +11,7 @@ const Logout = () => {
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/logout/');
+            const response = await axios.post('http://18.117.250.24/api/logout/');
             // Clear the token from localStorage
             console.log(response)
             localStorage.removeItem('token');

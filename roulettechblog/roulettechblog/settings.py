@@ -32,6 +32,7 @@ CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOWED_ORIGINS = (
        'http://localhost:3000',
+       'http://sumedh-roulettech-challenge.s3-website.us-east-2.amazonaws.com'
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
