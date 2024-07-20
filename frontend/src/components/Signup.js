@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 /** 
  *  SignUp component using function based components (for now)
 */
 const SignUp = () => {
     const [formData, setFormData] = useState({ username: '', password: ''});
+    const navigate = useNavigate(); 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,6 +19,8 @@ const SignUp = () => {
             const response = await axios.post('http://localhost:8000/api/signup/', formData);
             console.log("Hello from SignUp!")
             console.log(response.data);
+            navigate(`/login`, { replace: true }); // <-- redirect
+            window.location.reload()
         } catch (error) {
             console.error(error);
         }

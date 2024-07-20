@@ -11,7 +11,7 @@ const PostDetail = () => {
             try {
                 console.log("Sending request to the backend for single post details")
                 console.log(post_id)
-                const response = await axios.get(`http://localhost:8000/api/post/${post_id}/`);
+                const response = await axios.get(`http://18.117.250.24/api/post/${post_id}/`);
                 setPost(response.data);
             } catch(error) {
                 console.error(error);
@@ -25,7 +25,7 @@ const PostDetail = () => {
         <div className="container">
             <div className="column text-light">
                 <div className="row">
-                    <img src={require('../assets/images/food-bg.jpg')} className="card-img-top pb-3" alt="..."></img>
+                    <img src={require('../assets/images/food-bg' + post_id + '.jpg')} className="card-img-top pb-3" alt="..."></img>
                 </div>
                 <div className="row">
                     <h1 className="text-light h1 my-5">{post.title}</h1>

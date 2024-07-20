@@ -56,10 +56,11 @@ class PostSerializer(serializers.ModelSerializer):
         new_post = Post.objects.create(**validated_data)
         new_post.save()
 
-        # Create Tag instances if they don't exist
-        for tag_name in tags_data:
-            tag, _ = Tag.objects.get_or_create(name=tag_name)  # Use 'name' as the unique identifier
-            # Assign tags to the new post
-            new_post.tags.add(tag)
+        # If tags are passed, create Tag instances if they don't exist i.e. if they're new
+        if tags_data:
+            for tag_name in tags_data:
+                tag, _ = Tag.objects.get_or_create(name=tag_name)  # Use 'name' as the unique identifier
+                # Assign tags to the new post
+                new_post.tags.add(tag)
 
         return new_post

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 
 const Navbar = () => {
+    const token = localStorage.getItem('token');
     
     return (
         <nav className="container navbar navbar-expand-lg">
@@ -17,6 +19,15 @@ const Navbar = () => {
                     <li className="nav-item"><Link to="/post/create"><span className="nav-link text-light">Create Post</span></Link></li>
                 </ul>
             </div>
+
+            {/* Conditionally render Logout component only if token exists */}
+            {token && (
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Logout /> {/* Render the Logout component */}
+                    </li>
+                </ul>
+            )}
 
             <form className="form-inline my-2 my-lg-0">
                 <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></input>

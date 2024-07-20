@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer, PostSerializer
 from django.contrib.auth import authenticate, login, logout
 import json
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 # Create your views here.
 # 1. Signup View
@@ -24,6 +26,8 @@ class SignUpApiView(APIView):
 
 # 2. Login view
 class LoginApiView(APIView):
+    authentication_classes = [TokenAuthentication]
+
     # When called by get method, will only display the Login page
     # post method will be used to authenticate and login
     def post(self, request, *args, **kwargs):
@@ -32,10 +36,21 @@ class LoginApiView(APIView):
 
         user = authenticate(request, username = username, password = password)
         if user:
+            token, created = Token.objects.get_or_create(user=user)
             login(request, user)
-            return Response(status=status.HTTP_200_OK)
+            return Response({'token': token.key}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+# 3. Logout view
+class LogoutApiView(APIView):
+    authentication_classes = [TokenAuthentication]
+
+    # Logout post request
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return Response({'message': "Logged out successfully!"}, status=status.HTTP_200_OK)
+
 
 # Debug endpoint/view
 class ViewUsersView(APIView):
@@ -46,7 +61,7 @@ class ViewUsersView(APIView):
 
         return Response(data = usersData.data, status = status.HTTP_200_OK)
 
-# 3. Create Post View
+# 4. Create Post View
 class CreatePostApiView(APIView):
     # Only authenticated users can create a post
     permission_classes = [permissions.IsAuthenticated]
@@ -62,7 +77,7 @@ class CreatePostApiView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# 4. Posts Feed View
+# 5. Posts Feed View
 class PostFeedApiView(APIView):
     def get(self, request, *args, **kwargs):
         posts = Post.objects.all()
@@ -70,7 +85,7 @@ class PostFeedApiView(APIView):
 
         return Response(data = postsData.data, status = status.HTTP_200_OK)
 
-# # 5. Single Post View (DetailView)
+# 6. Single Post View (DetailView)
 class PostDetailApiView(APIView):
     def get_object(self, post_id):
         """
