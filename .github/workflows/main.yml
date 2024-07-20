@@ -4,8 +4,8 @@ on: [push]
 
 env:
   #
-  ROULETTECH_BLOG_API_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/roulettechblog1
-  ROULETTECH_BLOG_NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx1
+  ROULETTECH_BLOG_API_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/roulettechblog2
+  ROULETTECH_BLOG_NGINX_IMAGE: ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')/nginx2
   REGISTRY: ghcr.io
 
 jobs:
