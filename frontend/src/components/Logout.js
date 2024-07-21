@@ -5,13 +5,13 @@ import axios from 'axios';
 /**
  * Logout component
  */
-const Logout = () => {
+const Logout = ({apiServer}) => {
     const navigate = useNavigate(); 
 
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://18.117.250.24/api/logout/');
+            const response = await axios.post('http://' + apiServer + '/api/logout/');
             // Clear the token from localStorage
             console.log(response)
             localStorage.removeItem('token');

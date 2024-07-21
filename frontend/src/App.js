@@ -10,19 +10,21 @@ import Footer from './components/Footer';
 import Logout from './components/Logout';
 
 function App() {
+  // const apiServer = 'localhost:8000';
+  const apiServer = '18.117.250.24';
   return (
     <div className="App bg-dark">
     <div id="page-container">
       <div id="content-wrap">
         <Router>
-          <Navbar />
+          <Navbar apiServer={apiServer} />
           <Routes>
-            <Route path="/signup" element={<SignUp/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/logout" element={<Logout/>} />
-            <Route path="/feed" element={<Feed/>} />
-            <Route path="/post/:post_id" element={<PostDetail/>} />
-            <Route path="/post/create" element={<CreatePost/>} />
+            <Route path="/signup" element={<SignUp apiServer={apiServer} />} />
+            <Route path="/login" element={<Login apiServer={apiServer} />} />
+            <Route path="/logout" element={<Logout apiServer={apiServer} />} />
+            <Route path="/feed" element={<Feed apiServer={apiServer} />} />
+            <Route path="/post/:post_id" element={<PostDetail apiServer={apiServer} />} />
+            <Route path="/post/create" element={<CreatePost apiServer={apiServer} />} />
           </Routes>
         </Router>
       </div>

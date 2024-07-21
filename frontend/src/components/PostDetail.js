@@ -2,16 +2,26 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const PostDetail = () => {
+const PostDetail = ({apiServer}) => {
     const { post_id } = useParams();
     const [post, setPost] = useState({});
+
+    let image_id;
+    for(let i = 0; i < 30; i++) {
+        image_id = post_id%12;
+
+        if(image_id == 0) {
+            image_id = 12;
+        }
+    };
 
     useEffect(() => {
         const fetchPost = async () => {
             try {
                 console.log("Sending request to the backend for single post details")
                 console.log(post_id)
-                const response = await axios.get(`http://18.117.250.24/api/post/${post_id}/`);
+                const response = await axios.get('http://' + apiServer +`/api/post/${post_id}/`);
+                response.data.content = response.data.content.replace(/\\n/g, '\n');
                 setPost(response.data);
             } catch(error) {
                 console.error(error);
@@ -25,7 +35,7 @@ const PostDetail = () => {
         <div className="container">
             <div className="column text-light">
                 <div className="row">
-                    <img src={require('../assets/images/food-bg' + post_id + '.jpg')} className="card-img-top pb-3" alt="..."></img>
+                    <img src={require('../assets/images/food-bg' + image_id + '.jpg')} className="card-img-top pb-3" alt="..."></img>
                 </div>
                 <div className="row">
                     <h1 className="text-light h1 my-5">{post.title}</h1>
@@ -38,7 +48,7 @@ const PostDetail = () => {
                 </div>
                 <hr className="hr hr-blurry" />
                 <div className="row border-">
-                    <p className="text-light" style={{ whiteSpace: 'pre-line' }}>{post.content}</p>
+                    <p className="text-light" style={{ whiteSpace: 'pre-wrap' }}>{post.content}</p>
                 </div>
             </div>
         </div>

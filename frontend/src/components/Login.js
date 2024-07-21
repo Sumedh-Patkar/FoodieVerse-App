@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 /**
  * Login component using function based components (for now)
  */
-const Login = () => {
+const Login = ({apiServer}) => {
     const [formData, setFormData] = useState({ username: '', password: ''});
     const navigate = useNavigate(); 
 
@@ -16,7 +16,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://18.117.250.24/api/login/', formData);
+            const response = await axios.post('http://' + apiServer + '/api/login/', formData);
             localStorage.setItem('token', response.data.token);
 
             console.log("Hello from Login!")

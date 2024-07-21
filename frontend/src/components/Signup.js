@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 /** 
  *  SignUp component using function based components (for now)
 */
-const SignUp = () => {
+const SignUp = ({apiServer}) => {
     const [formData, setFormData] = useState({ username: '', password: ''});
     const navigate = useNavigate(); 
 
@@ -16,7 +16,7 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://18.117.250.24/api/signup/', formData);
+            const response = await axios.post('http://' + apiServer +'/api/signup/', formData);
             console.log("Hello from SignUp!")
             console.log(response.data);
             navigate(`/login`, { replace: true }); // <-- redirect

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Logout from './Logout';
 
-const Navbar = () => {
+const Navbar = ({apiServer}) => {
     const token = localStorage.getItem('token');
     
     return (
@@ -24,7 +24,7 @@ const Navbar = () => {
             {token && (
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <Logout /> {/* Render the Logout component */}
+                        <Logout apiServer={apiServer} /> {/* Render the Logout component */}
                     </li>
                 </ul>
             )}

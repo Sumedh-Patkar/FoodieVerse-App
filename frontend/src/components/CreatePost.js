@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CreatePost = () => {
-    const [formData, setFormData] = useState({ title: '', content: '' });
+const CreatePost = ({apiServer}) => {
+    const [formData, setFormData] = useState({ title: '', subtitle: '', content: '', tags: [] });
     const navigate = useNavigate(); 
 
     const handleChange = (e) => {
@@ -14,12 +14,18 @@ const CreatePost = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            await axios.post('http://18.117.250.24/api/post/create/', formData, {
+            const response = await axios.post('http://'+ apiServer + '/api/post/create/', formData, {
                 headers: {
                     Authorization: `Token ${token}`,
                 },
             });
-            
+
+            console.log("Post created successfully!");
+            console.log(response.data);
+            let post_id = response.data.id;
+
+            navigate(`/post/${post_id}`, { replace: true }); // <-- redirect
+            window.location.reload()
         } catch (error) {
             console.error(error);
         }
@@ -33,6 +39,10 @@ const CreatePost = () => {
                 <div className="form-floating my-3">
                     <input type="text" id="floatingTitle" className="form-control" name="title" onChange={handleChange} placeholder='Title' />
                     <label for="floatingTitle">Title</label>
+                </div>
+                <div className="form-floating my-3">
+                    <input type="text" id="floatingSubtitle" className="form-control" name="subtitle" onChange={handleChange} placeholder='Subtitle' />
+                    <label for="floatingSubtitle">Subtitle</label>
                 </div>
                 <div className="form-group my-3">
                     <label for="floatingContent">Your Recipe</label>
