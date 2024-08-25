@@ -8,8 +8,8 @@ const Navbar = ({apiServer}) => {
     return (
         <nav className="container navbar navbar-expand-lg">
             <a className="navbar-brand text-light" href="#">
-                <img src={require('../assets/images/sandwich.png')} alt="Logo" width="30" height="24" className="d-inline-block mx-2 align-text-top"></img>
-                Roulettech Food Blog
+                <img src={require('../assets/images/hamburger.png')} alt="Logo" width="30" height="24" className="d-inline-block mx-2 align-text-top"></img>
+                FoodieVerse
             </a>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav nav-tabs mr-auto">

@@ -8,10 +8,11 @@ import PostDetail from './components/PostDetail';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Logout from './components/Logout';
+import Welcome from './components/Welcome';
 
 function App() {
-  // const apiServer = 'localhost:8000';
-  const apiServer = '18.117.250.24';
+  const apiServer = 'localhost:8000';
+  // const apiServer = '18.117.250.24';
   return (
     <div className="App bg-dark">
     <div id="page-container">
@@ -28,7 +29,8 @@ function App() {
           </Routes>
         </Router>
       </div>
-        <Footer></Footer>
+      <Welcome apiServer={apiServer}></Welcome>
+      <Footer></Footer>
     </div>
     </div>
   );
